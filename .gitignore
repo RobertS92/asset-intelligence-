@@ -7,6 +7,7 @@ data/
 .env
 .env.*
 !.env.example
+!web/.env.example
 
 # Python
 .venv/
@@ -20,6 +21,12 @@ build/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Node / Next.js (web/)
+web/node_modules/
+web/.next/
+web/out/
+web/.vercel/
 
 # IDE / OS
 .idea/

@@ -65,7 +65,8 @@ exodus-signals/
 │   ├── scoring/              # parcel features + models (no demographics)
 │   ├── notify/               # digest + alerts
 │   └── common/               # schemas.py, http.py (polite client), storage.py
-├── app/                      # Streamlit (Phase 1); Next.js later
+├── app/                      # Streamlit (Phase 1 local)
+├── web/                      # Next.js Auction Finder (Vercel-hosted)
 ├── notebooks/{research,scoring}/
 ├── tests/{fixtures,unit,integration}/  test_firewall.py
 ├── scripts/                  # one-off + verification scripts

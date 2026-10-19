@@ -26,9 +26,19 @@ uv run python -m exodus.cli fetch tarrant_constable3_taxsale
 uv run python -m exodus.cli normalize
 uv run python -m exodus.cli digest
 uv run streamlit run app/Home.py --server.port 8505
+uv run python scripts/export_public_listings.py   # refresh web/public sample JSON
+cd web && npm ci && npm run dev                   # hosted Auction Finder (Vercel)
 ```
+
+## Hosted UI (Vercel)
+
+Phase 1 local UI is Streamlit (`app/`). The public Auction Finder is Next.js under
+`web/` (Streamlit cannot run on Vercel serverless). See `web/README.md`.
+
+Deploy needs `VERCEL_TOKEN` plus a Vercel project with **Root Directory** = `web`.
 
 ## Layout
 
 See `AGENTS.md` §4. Raw fetches land in `data/raw/` (gitignored). Normalized
-listings live in `data/scoring/listings.parquet`.
+listings live in `data/scoring/listings.parquet`. Public sample JSON for the web
+app is `web/public/data/listings.json` (no owner PII).

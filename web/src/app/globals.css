@@ -1,0 +1,43 @@
+:root {
+  --paper: #eef2ec;
+  --surface: #f7f9f5;
+  --ink: #14201a;
+  --muted: #5c6b62;
+  --line: #cfd8d1;
+  --accent: #2f6b4f;
+  --accent-soft: #d7e8dd;
+  --accent-ink: #1d4a35;
+  --glow: radial-gradient(1200px 500px at 12% -10%, #c5dccb 0%, transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, #d9e4ef 0%, transparent 50%),
+    linear-gradient(180deg, #e8eee6 0%, #f4f7f2 45%, #eef2ec 100%);
+  --font-sans: var(--font-body), "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: var(--font-display-face), "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--glow);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}

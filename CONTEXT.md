@@ -102,6 +102,7 @@ Paid data (ATTOM, PropStream, Placer.ai, Nearmap) only after Gate 1, and only wi
 | 2026-10-18 | Scheduled daily jobs, not 24/7; web app only after Gate 1 | Data cadence is daily to monthly |
 | 2026-10-18 | Start with Tarrant, Harris, Collin tax sales plus Houston and Harris vehicle auctions | Public, structured, recurring |
 | 2026-10-19 | Scaffold Phase 1 repo; Tarrant golden fixture locked (35+7); Houston PD list URL is Vehicles_Scheduled_For_Auction.htm | First feed + firewall |
+| 2026-10-19 | Hosted Auction Finder is Next.js under `web/` on Vercel; Streamlit stays local-only (`app/`) | Streamlit needs WebSockets; Vercel is serverless |
 
 ## 8. Open questions
 
