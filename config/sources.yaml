@@ -1,0 +1,206 @@
+# Registry of every data source. Contract: AGENTS.md §6.
+# access: open | pdf_only | api | blocked | manual   ·   layer: exposure | trigger | departure | distress | acquisition | geo
+# robots_checked: date an agent last checked robots.txt + terms (null = not yet checked; must be set before writing a fetcher)
+
+sources:
+  # ---------- acquisition (Phase 1 priority) ----------
+  - key: tarrant_constable3_taxsale
+    name: Tarrant County Constable Pct. 3 monthly tax sale listings
+    url: https://www.tarrantcountytx.gov/en/constables/constable-3/delinquent-tax-sales/monthly-tax-sales-listings/
+    layer: acquisition
+    asset_types: [real_property]
+    sale_type: tax_sale
+    county_fips: "48439"
+    cadence: monthly (first Tuesday)
+    access: open
+    robots_checked: "2026-10-19"
+    notes: HTML tables (Cause No., Account No., Status) by firm + writs block. Golden fixture 2026-11-03 = 35 rows + 7 writs. Index URL uses .html suffix.
+
+  - key: lgbs_county_sale_pdfs
+    name: Linebarger county sale-list PDFs
+    url: https://taxsalesib.lgbs.com/images/lit_ps_images/ib-emails/
+    layer: acquisition
+    asset_types: [real_property]
+    sale_type: tax_sale
+    cadence: monthly
+    access: pdf_only
+    robots_checked: null
+    notes: File pattern County_Sale_list_<COUNTY>_<YYYYMMDD>.pdf. Do NOT crawl taxsales.lgbs.com (robots disallows).
+
+  - key: lgbs_taxsales_search
+    name: Linebarger tax sale search site
+    url: https://taxsales.lgbs.com/
+    layer: acquisition
+    access: blocked
+    robots_checked: 2026-10-18
+    notes: robots.txt disallows automated access. Use PDFs/email alerts only.
+
+  - key: harris_taxsale
+    name: Harris County tax sales (constables / sheriff)
+    url: https://www.hctax.net/Property/TaxSales
+    layer: acquisition
+    asset_types: [real_property]
+    sale_type: tax_sale
+    county_fips: "48201"
+    cadence: monthly
+    access: open
+    robots_checked: "2026-10-19"
+    notes: Also pulls Linebarger County_Sale_list_HARRIS_*.pdf from taxsalesib.lgbs.com (not taxsales.lgbs.com).
+
+  - key: collin_taxsale
+    name: Collin County tax sales
+    url: https://www.collincountytx.gov/tax_assessor/Pages/tax-sales.aspx
+    layer: acquisition
+    asset_types: [real_property]
+    sale_type: tax_sale
+    county_fips: "48085"
+    cadence: monthly
+    access: open
+    robots_checked: "2026-10-19"
+    notes: Alternate constable path also attempted by fetcher.
+
+  - key: houston_pd_vehicle_auction
+    name: Houston PD vehicles scheduled for auction (Ch. 683)
+    url: https://houstontx.gov/police/auto_dealers_detail/Vehicles_Scheduled_For_Auction.htm
+    layer: acquisition
+    asset_types: [vehicle]
+    sale_type: impound_auction
+    county_fips: "48201"
+    cadence: daily
+    access: open
+    robots_checked: "2026-10-19"
+    notes: Public, cash, as-is, held at storage facilities from 8:00 a.m. Salvage sold only to licensed dealers; 5+/yr requires a dealer license. Also mirrored on PublicSurplus. Info page at vehicle_auction.htm.
+
+  - key: harris_so_vehicle_auction
+    name: Harris County Sheriff vehicle auction PDFs
+    url: https://www.harriscountyso.org/Documents/Frontpage/
+    layer: acquisition
+    asset_types: [vehicle]
+    sale_type: impound_auction
+    county_fips: "48201"
+    cadence: periodic PDF lists
+    access: pdf_only
+    robots_checked: "2026-10-19"
+
+  - key: county_clerk_trustee_notices
+    name: County clerk notices of trustee sale (Collin, Harris, Tarrant)
+    url: null   # TODO(T-014)
+    layer: distress
+    asset_types: [real_property]
+    sale_type: trustee_sale
+    cadence: monthly (posted 21+ days before the first Tuesday)
+    access: open
+    robots_checked: null
+
+  - key: govdeals
+    name: GovDeals
+    url: https://www.govdeals.com/
+    layer: acquisition
+    asset_types: [vehicle, equipment, other]
+    sale_type: gov_surplus
+    access: manual   # check terms before automating; saved-search alerts first
+    robots_checked: null
+
+  - key: publicsurplus
+    name: PublicSurplus
+    url: https://www.publicsurplus.com/
+    layer: acquisition
+    asset_types: [vehicle, equipment, other]
+    sale_type: gov_surplus
+    access: manual
+    robots_checked: null
+
+  - key: federal_auctions
+    name: GSA Auctions / U.S. Treasury / U.S. Marshals
+    url: https://cms-dr.usa.gov/auctions-and-sales
+    layer: acquisition
+    asset_types: [vehicle, equipment, real_property, other]
+    sale_type: federal_seizure
+    access: manual
+    robots_checked: null
+
+  # ---------- distress features / labels ----------
+  - key: cad_rolls
+    name: Appraisal district certified rolls (Collin, Tarrant, Harris first)
+    url: https://comptroller.texas.gov/taxes/property-tax/county-directory/
+    layer: distress
+    access: manual   # bulk export / request; contains owner PII
+    robots_checked: null
+
+  - key: hud_usps_vacancy
+    name: HUD aggregated USPS vacancy data
+    url: https://www.huduser.gov/portal/datasets/usps.html
+    layer: departure
+    access: manual   # registration required
+    robots_checked: null
+
+  - key: fannie_sflp
+    name: Fannie Mae Single-Family Loan Performance
+    url: https://www.fanniemae.com/loanperformance
+    layer: distress
+    access: manual   # registration required; 3-digit ZIP grain
+    robots_checked: null
+
+  # ---------- exposure (RESEARCH ONLY — firewalled) ----------
+  - key: dol_lca
+    name: DOL OFLC LCA + PERM disclosure
+    url: https://www.dol.gov/agencies/eta/foreign-labor/performance
+    mirror: https://huggingface.co/datasets/Nason/dol-visas-database
+    layer: exposure
+    research_only: true
+    access: open
+    robots_checked: null
+
+  - key: uscis_h1b_hub
+    name: USCIS H-1B Employer Data Hub
+    url: https://www.uscis.gov/tools/reports-and-studies/h-1b-employer-data-hub
+    layer: exposure
+    research_only: true
+    access: open
+    robots_checked: null
+
+  - key: ohss_lpr_county
+    name: DHS OHSS new LPRs by county, country of birth, class
+    url: https://ohss.dhs.gov/topics/immigration/lawful-permanent-residents/lpr-state-county-country-birth-and-major-class
+    layer: exposure
+    research_only: true
+    access: open
+    robots_checked: null
+
+  - key: hmda
+    name: HMDA public loan-level data
+    url: https://ffiec.cfpb.gov/data-browser/
+    layer: exposure
+    research_only: true
+    access: api
+    robots_checked: null
+
+  - key: acs
+    name: Census ACS 5-year (B05006, B05001, B05002)
+    url: https://api.census.gov/data.html
+    layer: exposure
+    research_only: true
+    access: api
+    robots_checked: null
+
+  - key: twc_warn
+    name: Texas WARN notices
+    url: https://www.twc.texas.gov/data-reports/warn-notice
+    layer: trigger
+    access: open
+    robots_checked: null
+
+  # ---------- geo ----------
+  - key: hud_zip_crosswalk
+    name: HUD USPS ZIP crosswalk
+    url: https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+    layer: geo
+    access: manual
+    robots_checked: null
+
+  - key: census_geocoder
+    name: Census Geocoder API
+    url: https://geocoding.geo.census.gov/
+    layer: geo
+    access: api
+    robots_checked: null

@@ -1,0 +1,10 @@
+counties:
+  - {name: Collin,     fips: "48085", tier: texas_core}
+  - {name: Denton,     fips: "48121", tier: texas_core}
+  - {name: Dallas,     fips: "48113", tier: texas_core}
+  - {name: Tarrant,    fips: "48439", tier: texas_core}
+  - {name: Fort Bend,  fips: "48157", tier: houston}
+  - {name: Harris,     fips: "48201", tier: houston}
+  - {name: Travis,     fips: "48453", tier: austin}
+  - {name: Williamson, fips: "48491", tier: austin}
+phase1_auction_counties: ["48439", "48201", "48085"]   # Tarrant, Harris, Collin
