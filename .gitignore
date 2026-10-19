@@ -1,7 +1,8 @@
-# Data (PII + raw fetches — never commit)
-data/
+# Data (PII + raw fetches — never commit). Leading slash = repo root only.
+/data/
 *.parquet
 *.duckdb
+!web/public/data/
 
 # Secrets / env
 .env
