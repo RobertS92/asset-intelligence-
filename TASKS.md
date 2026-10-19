@@ -41,6 +41,7 @@
 - T-050/T-051: HMDA best-effort pull + LCA stub/schema in `data/research/`.
 - T-052: Streamlit on port 8505.
 - **Vercel (Notify/Orchestrator):** Next.js Auction Finder under `web/` (Streamlit is not Vercel-compatible). `npm run lint` + `npm run build` green; sample `web/public/data/listings.json` (146 listings, no owner PII). Temporary anonymous deploy: https://temporary-brisk-sienna-6r7t1sa.vercel.app (claim: https://vercel.com/claim-deployment?code=fd06df94-8c51-4d95-a414-5b09e56075c5; expires ~1h). **Permanent deploy blocked:** no `VERCEL_TOKEN` / project linkage. Rob: provide `VERCEL_TOKEN` (+ optional `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID`), Vercel project Root Directory `web`, and claim the temp URL.
+- **GitHub mirror:** Push to `https://github.com/RobertS92/asset-intelligence-` **blocked** — env has no `GH_TOKEN`/`GITHUB_TOKEN` and no SSH key for github.com (`could not read Username` / `Permission denied (publickey)`). Ready branch is on Origin: `cursor/vercel-auction-finder-fef9`. Target `main` is at `7e0768a` (different history).
 
 ### Acceptance criteria (Phase 1 P0)
 
